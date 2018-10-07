@@ -1,0 +1,23 @@
+Read multiple JSON files into a directory to convert into a dataset.
+I have files text1, text2, text3 in the directory JSON.
+Answer:setwd(path of the directory pointing to JSON)
+myfile <- list.files(path, pattern = "*.json", full.names = TRUE)
+myJSON <- lapply(myfile, function(x) fromJSON(file=x))
+
+2. Parse the following JSON into a data frame.
+js<-'{
+"name": null, "release_date_local": null, "title": "3 (2011)",
+"opening_weekend_take": 1234, "year": 2011,
+"release_date_wide": "2011-09-16", "gross": 59954
+}'
+
+Answer:library(rjson)
+data.frame(t(unlist(fromJSON(js))))
+Output:     title opening_weekend_take year release_date_wide gross
+1 3 (2011)                 1234 2011        2011-09-16 59954
+3. Write a script for Variable Binning using R.
+Answer:
+binning(x, y, breaks, nbins)
+where x and y are vector or a matrix with either one or two columns.
+breaks: either a vector or a matrix with two columns (depending on the dimension of x), assigning the division points of the axis, or the axes in the matrix case. It must not include Inf,-Inf or NAs, and it must span the whole range of the x points. If breaks is not given, it is computed by dividing the range of x into nbins intervals for each of the axes. 
+nbins:the number of intervals on the x axis (in the vector case), or a vector of two elements with the number of intervals on each axes of x (in the matrix case). If nbins is not given, a value is computed as round(log(length(x))/log(2)+1) or using a similar expression in the matrix case. 
